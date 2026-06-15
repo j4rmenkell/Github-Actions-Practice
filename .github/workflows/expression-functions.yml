@@ -31,14 +31,14 @@ jobs:
       - name: Convert job context to JSON
         run: echo "Job context in JSON: ${{ toJSON(github.job) }}"
         
+      # THE FIX: We use the '|' symbol to bypass YAML quoting rules
       - name: Parse JSON string
-        run: echo "Parsed JSON: ${{ fromJSON('{"hello":"world"}').hello }}"
+        run: |
+          echo "Parsed JSON: ${{ fromJSON('{"hello":"world"}').hello }}"
         
-      # FIX 1: Added the closing quotation mark
       - name: Hash files
         run: echo "Hash of files: ${{ hashFiles('**/package-lock.json', '**/Gemfile.lock') }}"
         
-      # FIX 2 & 3: Added 'run' commands and removed redundant ${{ }}
       - name: The job has succeeded
         if: success()
         run: echo "Everything worked perfectly!"
