@@ -19,4 +19,4 @@ jobs:
         
       - name: step 2
         run: |
-          grep "hello" $GITHUB_ENV
+          echo $GITHUB_ENV
