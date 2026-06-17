@@ -9,6 +9,6 @@ jobs:
         id: hello
         uses: j4rmenkell/barsoom@0.0.1
         with:
-          name: 'Brown'
+          who-to-greet: 'Brown'
       - name: Get the Output
         run: echo "The time was ${{ steps.hello.outputs.greeting }}"
