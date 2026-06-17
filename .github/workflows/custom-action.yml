@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hellow World action
         id: hello
-        uses: j4rmenkell/barsoom@0.0.1
+        uses: j4rmenkell/barsoom@main
         with:
           who-to-greet: 'AYOKO NA'
       - name: Get the Output
