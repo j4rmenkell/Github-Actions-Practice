@@ -1,0 +1,14 @@
+on: [push]
+
+
+jobs:
+  hello-johann:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hellow World action
+        id: hello
+        uses: j4rmenkell/barsoom@0.0.1
+        with:
+          name: 'Brown'
+      - name: Get the Output
+        run: echo "The time was ${{ steps.hello.outputs.greeting }}"
