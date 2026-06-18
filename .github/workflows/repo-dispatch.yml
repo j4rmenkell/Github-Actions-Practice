@@ -10,6 +10,6 @@ jobs:
     steps:
       - name: Show payload 
         run: |
-          echo "Event name: ${{ github.action.event }}"
-          echo "Here is the message: ${{ github.action.client_payload.message }}"
+          echo "Event name: ${{ github.event.action }}"
+          echo "Here is the message: ${{ github.event.client_payload.message }}"
     
