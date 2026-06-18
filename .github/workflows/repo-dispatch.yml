@@ -1,0 +1,15 @@
+name: Repo Dispatch example
+
+on: 
+  repository_dispatch: 
+    types: [test-my-payload, hello]
+
+jobs:
+  show-payload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show payload 
+        run: |
+          echo "Event name: ${{ github.action.event }}"
+          echo "Here is the message: ${{ github.action.client_payload.message }}"
+    
