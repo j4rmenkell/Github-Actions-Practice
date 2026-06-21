@@ -1,0 +1,47 @@
+name: 🚀 Multi-Stage Tollbooth Deploy
+
+on:
+  push:
+    branches:
+      - main
+  # Allows you to click a "Run Workflow" button in the UI to test it manually
+  workflow_dispatch: 
+
+jobs:
+
+  # =========================================================
+  # JOB 1: The "Free-For-All" Job (No Environment attached)
+  # =========================================================
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Unit Tests
+        run: |
+          echo "🧪 Running tests in the wild west..."
+          echo "✅ All tests passed! Handing off to deployment."
+
+
+  # =========================================================
+  # JOB 2: The "Tollbooth" Job
+  # =========================================================
+  deploy_to_live:
+    needs: build_and_test        # <-- Crucial: Tells Job 2 to wait for Job 1
+    runs-on: ubuntu-latest
+    
+    environment: production      # <-- THE MAGIC WORD. (Locks the VM in limbo)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Production
+        # We safely pull the secret out of the Production Vault into the OS memory
+        env:
+          LIVE_KEY: ${{ secrets.STRIPE_API_KEY }}
+        run: |
+          echo "gatekeeper approved the run. Booting the server..."
+          echo "Deploying to live servers using key: $LIVE_KEY"
+          echo "🚀 Success!"
